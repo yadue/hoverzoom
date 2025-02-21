@@ -58,7 +58,7 @@ hoverZoomPlugins.push({
                 let signature = r.data.clip.playbackAccessToken.signature;
                 let token = r.data.clip.playbackAccessToken.value;
                 let t = JSON.parse(token);
-                let clip_uri = t.clip_uri;
+                let clip_uri = r.data.clip.videoQualities[0].sourceURL;
                 let fullsizeUrl = clip_uri + '?sig=' + signature + '&token=' + encodeURIComponent(token);
 
                 fullsizeUrl += '.video';
@@ -77,7 +77,7 @@ hoverZoomPlugins.push({
 
         // ---------------------------------------------------- params
         var ClientID = "kimne78kx3ncx6brgo4mv6wki5h1ko";
-        var XDeviceID = getCookie('unique_id') || getCookie('unique_id_durable') || localStorage.local_copy_unique_id || 'd56e8463c57c7cd7';
+        var XDeviceID = getCookie('unique_id') || getCookie('unique_id_durable') || 'd56e8463c57c7cd7';
         // operation names
         var operationNameClip = "VideoAccessToken_Clip";
         var operationNameLiveOrVOD = "PlaybackAccessToken";

@@ -111,6 +111,26 @@
         "message": "Die Größe von gezoomten Bildern um diesen Faktor vergrößern",
         "description": "[options] Tooltip for adjust the size of zoomed images option"
     },
+    "optMaxWidth": {
+        "message": "Maximale Breite gezoomter Bilder festlegen:",
+        "description": "[options] Adjust the size of zoomed images option"
+    },
+    "optMaxWidthTooltip": {
+        "message": "Maximale Breite von gezoomten Bildern (0 für keine Breitenbeschränkung)",
+        "description": "[options] Tooltip for adjust the size of zoomed images option"
+    },
+    "optMaxHeight": {
+        "message": "Maximale Höhe gezoomter Bilder festlegen:",
+        "description": "[options] Adjust the size of zoomed images option"
+    },
+    "optMaxHeightTooltip": {
+        "message": "Maximale Höhe von gezoomten Bildern (0 für keine Höhenbeschränkung)",
+        "description": "[options] Tooltip for adjust the size of zoomed images option"
+    },
+    "optMaxSizeUnitName": {
+        "message": "px",
+        "description": "[options] Unit name (px) for zoomed images size option"
+    },
     "optCaptionLocation": {
         "message": "Position der Beschriftung:",
         "description": "[options] Adjust the position of the caption"
@@ -315,6 +335,42 @@
         "message": "0%: transparent, 100%: schwarz",
         "description": "[options] Tooltip for background opacity"
     },
+    "optImagePaddingSize": {
+        "message": "Bild Abstandsgröße:",
+        "description": "[options] Adjust the zoomed image padding size option"
+    },
+    "optImagePaddingSizeUnitName": {
+        "message": "Pixel",
+        "description": "[options] Unit name (pixels) for zoomed images padding option"
+    },
+    "optImagePaddingSizeTooltip": {
+        "message": "Ändert den Abstand für gezoomte Bilder. Abstand zum Ansichtsfensterrahmen.",
+        "description": "[options] Tooltip for adjust the zoomed image padding size option"
+    },
+    "optFullZoomHidesDetailsCaptions": {
+        "message": "Voller Zoom versteckt Details und Bildunterschriften",
+        "description": "[options] Full zoom key hides details and captions option"
+    },
+    "optFullZoomHidesDetailsCaptionsTooltip": {
+        "message": "Wenn voller Zoom aktiviert wird, dann werden Details und Bilduntertitel versteckt. Das Bild selbst kann vertikal mehr Platz einnehmen.",
+        "description": "[options] Tooltip for full zoom key hides details and captions option"
+    },
+    "optStatusBarOverlap": {
+        "message": "Erlaube gezoomten Bildern die Statusbar zu überlappen",
+        "description": "[options] Allow zoomed images to overlap the status bar option"
+    },
+    "optStatusBarOverlapTooltip": {
+        "message": "Erlaube gezoomten Bildern die Statusbar zu überlappen, um mehr Fläche des Fensters zu verwenden",
+        "description": "[options] Tooltip for allow zoomed images to overlap the status bar option"
+    },
+    "optHScrollBarOverlap": {
+        "message": "Erlaube gezoomten Bildern den horizontalen Scrollbalken zu überlappen",
+        "description": "[options] Allow zoomed images to overlap the horizontal scroll bar option"
+    },
+    "optHScrollBarOverlapTooltip": {
+        "message": "Erlaube gezoomten Bildern den horizontalen Scrollbalken zu überlappen, um mehr Fläche des Fensters zu verwenden",
+        "description": "[options] Tooltip for allow zoomed images to overlap the horizontal scroll bar option"
+    },
     "optCenterImages": {
         "message": "Bilder zentrieren",
         "description": "[options] Center images in the middle of the page option"
@@ -322,6 +378,14 @@
     "optCenterImagesTooltip": {
         "message": "Bilder zentrieren statt am Mauszeiger zu zeigen",
         "description": "[options] Tooltip for center images in the middle of the page option"
+    },
+    "optAutoLockImages": {
+        "message": "Bilder automatisch festsetzen",
+        "description": "[options] Automatically lock images option"
+    },
+    "optAutoLockImagesTooltip": {
+        "message": "Setze Bilder automatisch fest wenn Hover Zoom+ aktiviert wird",
+        "description": "[options] Tooltip for automatically lock images option"
     },
     "optFrameBackgroundColor": {
         "message": "Hintergrundfarbe des Rahmens:",
@@ -382,6 +446,18 @@
     "optDurationUnitName": {
         "message": "sek",
         "description": "[options] Short form of \"second\" for delay duration"
+    },
+    "optMouseClickHoldTime": {
+        "message": "Mouse click hold time:",
+        "description": "[options] Mouse click hold time option"
+    },
+    "optMouseClickHoldTimeTooltip": {
+        "message": "Amount of time required to hold a mouse click action key before the hold action is triggered",
+        "description": "[options] Tooltip for mouse click hold time option"
+    },
+    "optClickHoldTimeUnit": {
+        "message": "milliseconds",
+        "description": "[options] Unit name (pixel) for hold time amount"
     },
     "optSectionZoomSpeed": {
         "message": "Zoomgeschwindigkeit",
@@ -499,9 +575,81 @@
         "message": "Deckkraft gezoomter Bilder:",
         "description": "[options] Zoomed pictures opacity option"
     },
+    "optCaptionOpacity": {
+        "message": "Betitelung Transparenz:",
+        "description": "[options] Caption opacity option"
+    },
+    "optDetailsOpacity": {
+        "message": "Details Transparenz:",
+        "description": "[options] Details opacity option"
+    },
     "optOpacityUnitName": {
         "message": "%",
         "description": "[options] Unit name (percentage) for opacity option"
+    },
+    "optDetailsSelectorTooltip": {
+        "message": "Auswahl der Details die angezeigt werden, wenn Details angezeigt werden",
+        "description": "[options] Tooltip for details selector"
+    },
+    "optTitleBoxDetails": {
+        "message": "Anzuzeigende Details:",
+        "description": "[options] Title for details selector"
+    },
+    "optShowDetailHost": {
+        "message": "Host",
+        "description": "[options] Show Host Detail"
+    },
+    "optShowDetailFilename": {
+        "message": "Dateiname",
+        "description": "[options] Show File Name Detail"
+    },
+    "optShowDetailLastModified": {
+        "message": "Zuletzt Geändert",
+        "description": "[options] Show Last Modified Detail"
+    },
+    "optShowDetailExtension": {
+        "message": "Erweiterung",
+        "description": "[options] Show Extension Detail"
+    },
+    "optShowDetailContentLength": {
+        "message": "Medium Länge",
+        "description": "[options] Show Content Length Detail"
+    },
+    "optShowDetailDuration": {
+        "message": "Laufzeit",
+        "description": "[options] Show Duration Detail"
+    },
+    "optShowDetailScale": {
+        "message": "Skalierung",
+        "description": "[options] Show Scale Detail"
+    },
+    "optShowDetailRatio": {
+        "message": "Ratio",
+        "description": "[options] Show Ratio Detail"
+    },
+    "optShowDetailDimensions": {
+        "message": "Dimensionen",
+        "description": "[options] Show Dimensions Detail"
+    },
+    "optBelowPositionOffset": {
+        "message": "Untere Positionsverschiebung:",
+        "description": "[options] Below offset option"
+    },
+    "optBelowPositionOffsetTooltip": {
+        "message": "Umfang, um den unterer Text in der Unten-Position verschoben wird",
+        "description": "[options] Tooltip for below position offset"
+    },
+    "optAbovePositionOffset": {
+        "message": "Obere Positionsverschiebung:",
+        "description": "[options] Above offset option"
+    },
+    "optAbovePositionOffsetTooltip": {
+        "message": "Umfang, um den oberer Text in der Oben-Position verschoben wird",
+        "description": "[options] Tooltip for above position offset"
+    },
+    "optOffsetUnitName": {
+        "message": "%",
+        "description": "[options] Unit name (pixel) for offset amount"
     },
     "optDisplayImageLoaderTooltip": {
         "message": "Zeigt ein kleines Symbol an, wenn das Bild geladen wird (grün: Laden, rot: Fehler). Der rote Spinner ist optional.",
@@ -536,15 +684,15 @@
         "description": "[options] Placeholder for download folder option"
     },
     "optDownloadFolder": {
-        "message": "Save images, videos & audios to folder: Downloads/",
+        "message": "Speichere Bilder, Videos, und Audio in das Verzeichnis: Downloads/",
         "description": "[options] Download folder option"
     },
     "optRenameDownloadsTooltip": {
-        "message": "Prefix original names of downloads with origin, size, duration and so on for easier management",
+        "message": "Füge vor die Namen von Downloads Ursprung, Größe, Laufzeit und so weiter an",
         "description": "[options] Tooltip for rename downloads option"
     },
     "optRenameDownloads": {
-        "message": "Rename saved files by adding:",
+        "message": "Benenne gespeicherte Dateien um durch Anhängen von:",
         "description": "[options] Rename downloads option"
     },
     "optAddDownloadOriginTooltip": {
@@ -572,32 +720,44 @@
         "description": "[options] Add download duration option"
     },
     "optAddDownloadIndexTooltip": {
-        "message": "Add index of image in gallery (e.g: third image out of ten: 03-10)",
+        "message": "Füge Index des Bildes in der Galerie hinzu (zum Beispiel 03-10 für das dritte von 10)",
         "description": "[options] Tooltip for add download index option"
     },
     "optAddDownloadIndex": {
-        "message": "index",
+        "message": "Index",
         "description": "[options] Add download index option"
     },
     "optAddDownloadCaptionTooltip": {
-        "message": "Add caption (e.g: Mona Lisa by Leonardo da Vinci)",
+        "message": "Füge eine Bildunterschrift hinzu (z.B.: Mona Lisa von Leonardo da Vinci)",
         "description": "[options] Tooltip for add download caption option"
     },
     "optAddDownloadCaption": {
-        "message": "caption",
+        "message": "Bildunterschrift",
         "description": "[options] Add download caption option"
     },
     "optDownloadReplaceOriginalFilenameTooltip": {
-        "message": "Replace original filename or remove it if no value supplied (extension is preserved)",
+        "message": "Ersetze original Dateinamen, oder entferne ihn, wenn kein Wert angegeben wird (die Dateiendung wird beibehalten)",
         "description": "[options] Tooltip for replace original filename when downloading option"
     },
     "optDownloadReplaceOriginalFilenamePlaceholder": {
-        "message": "Example: fullsize_image",
+        "message": "Beispiel: volle-größe",
         "description": "[options] Placeholder for download folder option"
     },
     "optDownloadReplaceOriginalFilename": {
-        "message": "On save, replace original filename by:",
+        "message": "Beim Speichern, ersetze den original Dateinamen mit:",
         "description": "[options] Replace original filename when downloading option"
+    },
+    "optResetAllBannedImagesTooltip": {
+        "message": "After reset, all banned images, videos & audio tracks can be zoomed again",
+        "description": "[options] Tooltip for reset all banned images option"
+    },
+    "optResetAllBannedImages": {
+        "message": "Reset all banned images, videos & audio tracks",
+        "description": "[options] Reset all banned images option"
+    },
+    "optButtonResetAllBannedImages": {
+        "message": "Reset",
+        "description": "[options] Reset all banned images button"
     },
     "optSectionTroubleshooting": {
         "message": "Fehlersuche",
@@ -626,6 +786,34 @@
     "optSupportedAudioFormats": {
         "message": "Audio :",
         "description": "[options] Page section for supported audio formats"
+    },
+    "optSectionImportExportSettings": {
+        "message": "Import/Export",
+        "description": "[options] Page section for import/export"
+    },
+    "optSectionImportExportSettingsTooltip": {
+        "message": "Betätige Export um die aktuellen Einstellungen als Text zu erhalten. Betätige Import um die eingefügten Einstellungen zu übernehmen.",
+        "description": "[options] Tooltip for input and export options"
+    },
+    "optImportExportTextArea": {
+        "message": "Füge deine gespeicherten Einstellungen hier ein",
+        "description": "[options] Placeholder for import and export text area"
+    },
+    "optButtonImportSettings": {
+        "message": "Import",
+        "description": "[options] Import a save string from the textarea"
+    },
+    "optButtonExportSettings": {
+        "message": "Export",
+        "description": "[options] Export a save string into the textarea"
+    },
+    "optImport": {
+        "message": "Import erfolgreich!",
+        "description": "[options] Notification after successful import to options"
+    },
+    "optImportFailed": {
+        "message": "Import Fehlgeschlagen",
+        "description": "[options] Notification after failed import to options"
     },
     "optPageFAQ": {
         "message": "FAQ",
@@ -767,6 +955,14 @@
         "message": "Wenn Sie diese Taste gedrückt halten, wird das gezoomte Bild oder Video ausgeblendet. Verwenden Sie diese Taste, wenn das Bild Elemente ausblendet, die auch bei Mouseover angezeigt werden.",
         "description": "[options] Action key description"
     },
+    "optBanKeyTitle": {
+        "message": "Ban image",
+        "description": "[options] Action key title"
+    },
+    "optBanKeyDescription": {
+        "message": "Holding this key down adds the zoomed image or video to ban list. Use it when you do not want an image or video to be zoomed again on this page.",
+        "description": "[options] Action key description"
+    },
     "optOpenImageInWindowKeyTitle": {
         "message": "Bild in einem neuen Fenster öffnen",
         "description": "[options] Action key title"
@@ -860,7 +1056,7 @@
         "description": "[options] Report a bug link in page footer"
     },
     "optFooterVersionCopyright": {
-        "message": "Version $1 (letzte Aktualisierung: $2) - © 2014-2022 Oleg Anashkin",
+        "message": "Version $1 - © 2014-$2 Oleg Anashkin",
         "description": "[options] Copyright and version number in page footer"
     },
     "msgClickPageToPlayVideo": {

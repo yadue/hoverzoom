@@ -111,6 +111,26 @@
         "message": "Multiplica o tamanho das imagens ampliadas por este valor",
         "description": "[options] Tooltip for adjust the size of zoomed images option"
     },
+    "optMaxWidth": {
+        "message": "Definir a largura máxima das imagens com zoom:",
+        "description": "[options] Adjust the size of zoomed images option"
+    },
+    "optMaxWidthTooltip": {
+        "message": "Define a largura máxima das imagens com zoom por este valor (se 0, então não há largura máxima)",
+        "description": "[options] Tooltip for adjust the size of zoomed images option"
+    },
+    "optMaxHeight": {
+        "message": "Definir a altura máxima das imagens com zoom:",
+        "description": "[options] Adjust the size of zoomed images option"
+    },
+    "optMaxHeightTooltip": {
+        "message": "Define a altura máxima das imagens com zoom por este valor (se 0, então não há altura máxima)",
+        "description": "[options] Tooltip for adjust the size of zoomed images option"
+    },
+    "optMaxSizeUnitName": {
+        "message": "px",
+        "description": "[options] Unit name (px) for zoomed images size option"
+    },
     "optCaptionLocation": {
         "message": "Posição da legenda:",
         "description": "[options] Adjust the position of the caption"
@@ -156,7 +176,7 @@
         "description": "[options] Outline option"
     },
     "optFontOutlineTooltip": {
-        "message": "Se esta opção estiver selecionada, use fonte branca + borda preta fina para legendas e detalhes",
+        "message": "Se estiver selecionada: utilize fonte branca + borda preta fina para legendas e detalhes",
         "description": "[options] Tooltip for outline option"
     },
     "optMouseUnderlap": {
@@ -188,7 +208,7 @@
         "description": "[options] Show zoomed pictures while loading option"
     },
     "optShowWhileLoadingTooltip": {
-        "message": "As imagens ampliadas vão ser mostradas antes de carregarem totalmente",
+        "message": "A imagem ampliada será apresentada antes de ser totalmente carregada",
         "description": "[options] Tooltip for show zoomed pictures while loading option"
     },
     "optShowHighRes": {
@@ -200,19 +220,19 @@
         "description": "[options] Tooltip for show high resolution pictures when available option"
     },
     "optGalleriesMouseWheel": {
-        "message": "Use a roda do rato para navegar nos álbuns",
+        "message": "Utilizar a roda do rato para navegar nos álbuns",
         "description": "[options] Use mousewheel to navigate albums option"
     },
     "optGalleriesMouseWheelTooltip": {
-        "message": "Navegue no álbum com a roda do rato",
+        "message": "Navega no álbum com a roda do rato",
         "description": "[options] Tooltip for use mousewheel to navigate albums option"
     },
     "optDisableMouseWheelForVideo": {
-        "message": "Não use a roda do rato para navegar dentro do vídeo (teclas de atalho continuarão a funcionar)",
+        "message": "Não utilizar a roda do rato para navegar dentro do vídeo (teclas de acção continuarão a funcionar)",
         "description": "[options] Allows you to scroll through albums with the mousewheel but does not change behavior of GFY/Videos"
     },
     "optDisableMouseWheelForVideoTooltip": {
-        "message": "Deslize entre os álbuns mas não salte para a frente/trás nos vídeos",
+        "message": "Desliza entre os álbuns mas não salta para a frente/trás nos vídeos",
         "description": "[options] Allows you to scroll through albums with the mousewheel but does not change behavior of GFY/Videos"
     },
     "optZoomVideos": {
@@ -224,7 +244,7 @@
         "description": "[options] Tooltip for zoom videos option"
     },
     "optVideoPositionStep": {
-        "message": "Utilize as teclas de atalho anterior/seguinte (ou roda do rato) para alterar a posição do vídeo para",
+        "message": "Utilizar as teclas de ação anterior/seguinte (ou a roda do rato) para alterar a posição do vídeo",
         "description": "[options] Changing video position amount option"
     },
     "optVideoPositionStepUnitName": {
@@ -232,7 +252,7 @@
         "description": "[options] Unit name (seconds) for changing video position option"
     },
     "optVideoPositionStepTooltip": {
-        "message": "Avance ou retroceda no vídeo para este valor de segundos",
+        "message": "Avança ou retrocede o vídeo para este valor de segundos",
         "description": "[options] Tooltip for changing video position option"
     },
     "optMuteVideos": {
@@ -315,6 +335,42 @@
         "message": "0% : transparente, 100% : preto",
         "description": "[options] Tooltip for background opacity"
     },
+    "optImagePaddingSize": {
+        "message": "Tamanho do preenchimento da imagem:",
+        "description": "[options] Adjust the zoomed image padding size option"
+    },
+    "optImagePaddingSizeUnitName": {
+        "message": "píxeis",
+        "description": "[options] Unit name (pixels) for zoomed images padding option"
+    },
+    "optImagePaddingSizeTooltip": {
+        "message": "Altera o tamanho do preenchimento para imagens com zoom. O preenchimento determina o quão perto a imagem pode chegar da borda da janela de visualização",
+        "description": "[options] Tooltip for adjust the zoomed image padding size option"
+    },
+    "optFullZoomHidesDetailsCaptions": {
+        "message": "A tecla de ampliação total oculta os detalhes e as legendas",
+        "description": "[options] Full zoom key hides details and captions option"
+    },
+    "optFullZoomHidesDetailsCaptionsTooltip": {
+        "message": "Ao pressionar a ampliação completa, os detalhes e as legendas serão ocultados, permitindo que a imagem se expanda mais verticalmente",
+        "description": "[options] Tooltip for full zoom key hides details and captions option"
+    },
+    "optStatusBarOverlap": {
+        "message": "Permitir que as imagens ampliadas se sobreponham à barra de estado",
+        "description": "[options] Allow zoomed images to overlap the status bar option"
+    },
+    "optStatusBarOverlapTooltip": {
+        "message": "Permite que as imagens ampliadas se sobreponham à barra de estado, permitindo a utilização de mais espaço da janela",
+        "description": "[options] Tooltip for allow zoomed images to overlap the status bar option"
+    },
+    "optHScrollBarOverlap": {
+        "message": "Permitir que as imagens ampliadas se sobreponham à barra de deslocamento horizontal",
+        "description": "[options] Allow zoomed images to overlap the horizontal scroll bar option"
+    },
+    "optHScrollBarOverlapTooltip": {
+        "message": "Permite que as imagens ampliadas se sobreponham à barra horizontal, permitindo a utilização de mais espaço da janela",
+        "description": "[options] Tooltip for allow zoomed images to overlap the horizontal scroll bar option"
+    },
     "optCenterImages": {
         "message": "Centrar as imagens",
         "description": "[options] Center images in the middle of the page option"
@@ -322,6 +378,14 @@
     "optCenterImagesTooltip": {
         "message": "Centra as imagens ao invés delas seguirem o ponteiro do rato",
         "description": "[options] Tooltip for center images in the middle of the page option"
+    },
+    "optAutoLockImages": {
+        "message": "Bloquear imagens automaticamente",
+        "description": "[options] Automatically lock images option"
+    },
+    "optAutoLockImagesTooltip": {
+        "message": "As imagens são bloqueadas automaticamente ao ativar o Hover Zoom+",
+        "description": "[options] Tooltip for automatically lock images option"
     },
     "optFrameBackgroundColor": {
         "message": "Cor de fundo para a moldura:",
@@ -382,6 +446,18 @@
     "optDurationUnitName": {
         "message": "seg",
         "description": "[options] Short form of \"second\" for delay duration"
+    },
+    "optMouseClickHoldTime": {
+        "message": "Tempo de espera do clique do rato:",
+        "description": "[options] Mouse click hold time option"
+    },
+    "optMouseClickHoldTimeTooltip": {
+        "message": "Tempo necessário para pressionar uma tecla de ação de clique do rato antes de a ação de retenção ser acionada",
+        "description": "[options] Tooltip for mouse click hold time option"
+    },
+    "optClickHoldTimeUnit": {
+        "message": "milissegundos",
+        "description": "[options] Unit name (pixel) for hold time amount"
     },
     "optSectionZoomSpeed": {
         "message": "Velocidade do zoom",
@@ -492,16 +568,88 @@
         "description": "[options] Enable Action Keys focus overlay message option"
     },
     "optEnableNoFocusMsgTooltip": {
-        "message": "Às vezes, as Teclas de Atalho aprentam estar inoperacionais, isto costuma acontecer quando a página perdeu o foco. Se a opção estiver ativada, será apresentada uma mensagem de aviso (apenas uma vez).",
+        "message": "Por vezes, as Teclas de Atalho parecem estar inoperacionais, o que acontece normalmente quando a página perde o foco. Se a opção estiver selecionada, será apresentada uma mensagem de aviso (apenas uma vez).",
         "description": "[options] Tooltip for enable Action Keys focus overlay message option"
     },
     "optPicturesOpacity": {
         "message": "Opacidade das imagens ampliadas:",
         "description": "[options] Zoomed pictures opacity option"
     },
+    "optCaptionOpacity": {
+        "message": "Opacidade da legenda:",
+        "description": "[options] Caption opacity option"
+    },
+    "optDetailsOpacity": {
+        "message": "Opacidade dos detalhes:",
+        "description": "[options] Details opacity option"
+    },
     "optOpacityUnitName": {
         "message": "%",
         "description": "[options] Unit name (percentage) for opacity option"
+    },
+    "optDetailsSelectorTooltip": {
+        "message": "Selecionar o(s) detalhe(s) que deve(m) ser mostrado(s), se os detalhes forem apresentados",
+        "description": "[options] Tooltip for details selector"
+    },
+    "optTitleBoxDetails": {
+        "message": "Detalhe(s) a mostrar:",
+        "description": "[options] Title for details selector"
+    },
+    "optShowDetailHost": {
+        "message": "Servidor",
+        "description": "[options] Show Host Detail"
+    },
+    "optShowDetailFilename": {
+        "message": "Nome do ficheiro",
+        "description": "[options] Show File Name Detail"
+    },
+    "optShowDetailLastModified": {
+        "message": "Última modificação",
+        "description": "[options] Show Last Modified Detail"
+    },
+    "optShowDetailExtension": {
+        "message": "Extensão",
+        "description": "[options] Show Extension Detail"
+    },
+    "optShowDetailContentLength": {
+        "message": "Comprimento da multimédia",
+        "description": "[options] Show Content Length Detail"
+    },
+    "optShowDetailDuration": {
+        "message": "Duração",
+        "description": "[options] Show Duration Detail"
+    },
+    "optShowDetailScale": {
+        "message": "Escala",
+        "description": "[options] Show Scale Detail"
+    },
+    "optShowDetailRatio": {
+        "message": "Rácio",
+        "description": "[options] Show Ratio Detail"
+    },
+    "optShowDetailDimensions": {
+        "message": "Dimensões",
+        "description": "[options] Show Dimensions Detail"
+    },
+    "optBelowPositionOffset": {
+        "message": "Deslocação da posição abaixo:",
+        "description": "[options] Below offset option"
+    },
+    "optBelowPositionOffsetTooltip": {
+        "message": "Valor para deslocar o texto na posição abaixo",
+        "description": "[options] Tooltip for below position offset"
+    },
+    "optAbovePositionOffset": {
+        "message": "Deslocação da posição acima:",
+        "description": "[options] Above offset option"
+    },
+    "optAbovePositionOffsetTooltip": {
+        "message": "Valor para deslocar o texto na posição acima",
+        "description": "[options] Tooltip for above position offset"
+    },
+    "optOffsetUnitName": {
+        "message": "%",
+        "description": "[options] Unit name (pixel) for offset amount"
     },
     "optDisplayImageLoaderTooltip": {
         "message": "Mostra um ícone animado enquanto carrega a imagem (verde: a carregar, vermelho: erro). O ícone vermelho é opcional.",
@@ -528,7 +676,7 @@
         "description": "[options] Use separate window for unloadable urls option"
     },
     "optDownloadFolderTooltip": {
-        "message": "As subpastas, se necessário, serão automaticamente criadas",
+        "message": "Se necessário, serão criadas subpasta(s)",
         "description": "[options] Tooltip for download folder option"
     },
     "optDownloadFolderPlaceholder": {
@@ -536,15 +684,15 @@
         "description": "[options] Placeholder for download folder option"
     },
     "optDownloadFolder": {
-        "message": "Save images, videos & audios to folder: Downloads/",
+        "message": "Guardar imagens, vídeos e áudios numa pasta: Transferências/",
         "description": "[options] Download folder option"
     },
     "optRenameDownloadsTooltip": {
-        "message": "Prefix original names of downloads with origin, size, duration and so on for easier management",
+        "message": "Prefixar os nomes originais das transferências com a origem, tamanho, duração, etc., para uma gestão mais fácil",
         "description": "[options] Tooltip for rename downloads option"
     },
     "optRenameDownloads": {
-        "message": "Rename saved files by adding:",
+        "message": "Mudar o nome dos ficheiros guardados adicionando:",
         "description": "[options] Rename downloads option"
     },
     "optAddDownloadOriginTooltip": {
@@ -580,24 +728,36 @@
         "description": "[options] Add download index option"
     },
     "optAddDownloadCaptionTooltip": {
-        "message": "Add caption (e.g: Mona Lisa by Leonardo da Vinci)",
+        "message": "Adicionar legenda (por exemplo: Mona Lisa de Leonardo da Vinci)",
         "description": "[options] Tooltip for add download caption option"
     },
     "optAddDownloadCaption": {
-        "message": "caption",
+        "message": "legenda",
         "description": "[options] Add download caption option"
     },
     "optDownloadReplaceOriginalFilenameTooltip": {
-        "message": "Replace original filename or remove it if no value supplied (extension is preserved)",
+        "message": "Substitui o nome do ficheiro original ou remove-o se não for fornecido nenhum valor (a extensão é preservada)",
         "description": "[options] Tooltip for replace original filename when downloading option"
     },
     "optDownloadReplaceOriginalFilenamePlaceholder": {
-        "message": "Example: fullsize_image",
+        "message": "Exemplo: fullsize_image",
         "description": "[options] Placeholder for download folder option"
     },
     "optDownloadReplaceOriginalFilename": {
-        "message": "On save, replace original filename by:",
+        "message": "Ao guardar, substituir o nome do ficheiro original por:",
         "description": "[options] Replace original filename when downloading option"
+    },
+    "optResetAllBannedImagesTooltip": {
+        "message": "Após a reposição, todas as imagens, vídeos e faixas de áudio proibidas podem ser novamente ampliadas",
+        "description": "[options] Tooltip for reset all banned images option"
+    },
+    "optResetAllBannedImages": {
+        "message": "Repor todas as imagens, vídeos e faixas de áudio banidas",
+        "description": "[options] Reset all banned images option"
+    },
+    "optButtonResetAllBannedImages": {
+        "message": "Repor",
+        "description": "[options] Reset all banned images button"
     },
     "optSectionTroubleshooting": {
         "message": "Resolução de problemas",
@@ -626,6 +786,34 @@
     "optSupportedAudioFormats": {
         "message": "Áudio :",
         "description": "[options] Page section for supported audio formats"
+    },
+    "optSectionImportExportSettings": {
+        "message": "Importar/Exportar",
+        "description": "[options] Page section for import/export"
+    },
+    "optSectionImportExportSettingsTooltip": {
+        "message": "Pressione exportar para obter uma sequência das suas definições atuais. Pressione importar para carregar as suas definições coladas",
+        "description": "[options] Tooltip for input and export options"
+    },
+    "optImportExportTextArea": {
+        "message": "Colar aqui as definições guardadas",
+        "description": "[options] Placeholder for import and export text area"
+    },
+    "optButtonImportSettings": {
+        "message": "Importar",
+        "description": "[options] Import a save string from the textarea"
+    },
+    "optButtonExportSettings": {
+        "message": "Exportar",
+        "description": "[options] Export a save string into the textarea"
+    },
+    "optImport": {
+        "message": "Importação bem sucedida!",
+        "description": "[options] Notification after successful import to options"
+    },
+    "optImportFailed": {
+        "message": "Não foi possível importar",
+        "description": "[options] Notification after failed import to options"
     },
     "optPageFAQ": {
         "message": "FAQ",
@@ -688,7 +876,7 @@
         "description": "[options] FAQ Answer 4 part 1"
     },
     "optFAQ_A4_2": {
-        "message": "A imagem ou o vídeo são agora exibidos em tamanho real. Pode ampliar ou reduzir o zoom usando a roda do rato.",
+        "message": "A imagem ou o vídeo é agora apresentado em tamanho real. Pode ampliar ou reduzir o zoom utilizando a roda do rato.",
         "description": "[options] FAQ Answer 4 part 2"
     },
     "optFAQ_Q5": {
@@ -764,7 +952,15 @@
         "description": "[options] Action key title"
     },
     "optHideKeyDescription": {
-        "message": "Pressione esta tecla para esconder a imagem ou o vídeo ampliado. Utilize-a quando a imagem oculta elementos que também são exibidos ao passar o rato.",
+        "message": "Pressione esta tecla para ocultar a imagem ou o vídeo ampliado. Utilize-a quando a imagem oculta elementos que também são apresentados ao passar o rato.",
+        "description": "[options] Action key description"
+    },
+    "optBanKeyTitle": {
+        "message": "Banir imagem",
+        "description": "[options] Action key title"
+    },
+    "optBanKeyDescription": {
+        "message": "Pressione esta tecla para adicionar a imagem ou o vídeo ampliado à lista de proibições. Utilize-a quando não quiser que uma imagem ou vídeo seja ampliado novamente nesta página.",
         "description": "[options] Action key description"
     },
     "optOpenImageInWindowKeyTitle": {
@@ -804,7 +1000,7 @@
         "description": "[options] Action key title"
     },
     "optFullZoomKeyDescription": {
-        "message": "Quando esta tecla é pressionada, a imagem é exibida usando todo o espaço disponível. Útil apenas para imagens de alta resolução.",
+        "message": "Quando esta tecla é pressionada, a imagem é apresentada utilizando todo o espaço disponível. Útil apenas para imagens de alta resolução.",
         "description": "[options] Action key description"
     },
     "optCopyImageKeyTitle": {
@@ -832,7 +1028,7 @@
         "description": "[options] Action key description"
     },
     "optNextImgKeyTitle": {
-        "message": "Ver a imagem seguinte numa galeria",
+        "message": "Ver imagem seguinte numa galeria",
         "description": "[options] Action key title"
     },
     "optNextImgKeyDescription": {
@@ -860,7 +1056,7 @@
         "description": "[options] Report a bug link in page footer"
     },
     "optFooterVersionCopyright": {
-        "message": "Versão $1 (última atualização: $2) - © 2014-2022 Oleg Anashkin",
+        "message": "Versão $1 - © 2014-$2 Oleg Anashkin",
         "description": "[options] Copyright and version number in page footer"
     },
     "msgClickPageToPlayVideo": {

@@ -111,12 +111,32 @@
         "message": "확대된 이미지를 해당 배수만큼 확대",
         "description": "[options] Tooltip for adjust the size of zoomed images option"
     },
+    "optMaxWidth": {
+        "message": "확대된 이미지의 최대 너비 설정:",
+        "description": "[options] Adjust the size of zoomed images option"
+    },
+    "optMaxWidthTooltip": {
+        "message": "확대된 이미지의 최대 너비를 이만큼으로 설정합니다 (0이면 최대 너비 없음)",
+        "description": "[options] Tooltip for adjust the size of zoomed images option"
+    },
+    "optMaxHeight": {
+        "message": "확대된 이미지의 최대 높이 설정:",
+        "description": "[options] Adjust the size of zoomed images option"
+    },
+    "optMaxHeightTooltip": {
+        "message": "확대된 이미지의 최대 높이를 이만큼으로 설정합니다 (0이면 최대 높이 없음)",
+        "description": "[options] Tooltip for adjust the size of zoomed images option"
+    },
+    "optMaxSizeUnitName": {
+        "message": "px",
+        "description": "[options] Unit name (px) for zoomed images size option"
+    },
     "optCaptionLocation": {
-        "message": "자막 위치:",
+        "message": "캡션 위치:",
         "description": "[options] Adjust the position of the caption"
     },
     "optCaptionLocationTooltip": {
-        "message": "자막을 해당 이미지의 위/아래에 표시, 혹은 삭제",
+        "message": "캡션을 해당 이미지의 위/아래에 표시, 혹은 삭제",
         "description": "[options] Tooltip for adjusting the position of the caption"
     },
     "optCaptionLocationAbove": {
@@ -156,7 +176,7 @@
         "description": "[options] Outline option"
     },
     "optFontOutlineTooltip": {
-        "message": "활성화 시 흰 글꼴에 얇고 검은 테두리를 가진 글씨로 자막과 상세 정보를 표시",
+        "message": "활성화 시 흰 글꼴에 얇고 검은 테두리를 가진 글씨로 캡션과 상세 정보를 표시",
         "description": "[options] Tooltip for outline option"
     },
     "optMouseUnderlap": {
@@ -315,6 +335,42 @@
         "message": "0%: 투명, 100%: 검정",
         "description": "[options] Tooltip for background opacity"
     },
+    "optImagePaddingSize": {
+        "message": "이미지 여백 크기:",
+        "description": "[options] Adjust the zoomed image padding size option"
+    },
+    "optImagePaddingSizeUnitName": {
+        "message": "픽셀",
+        "description": "[options] Unit name (pixels) for zoomed images padding option"
+    },
+    "optImagePaddingSizeTooltip": {
+        "message": "확대된 이미지의 여백 크기를 변경합니다. 여백은 이미지가 표시 창의 테두리에 얼마나 가까이 다가갈 수 있는지를 결정합니다.",
+        "description": "[options] Tooltip for adjust the zoomed image padding size option"
+    },
+    "optFullZoomHidesDetailsCaptions": {
+        "message": "전체 확대 시 상세 정보와 캡션 숨김",
+        "description": "[options] Full zoom key hides details and captions option"
+    },
+    "optFullZoomHidesDetailsCaptionsTooltip": {
+        "message": "전체 확대 시, 이미지를 수직으로 더 크게 확대할 수 있도록 상세 정보와 캡션을 숨깁니다",
+        "description": "[options] Tooltip for full zoom key hides details and captions option"
+    },
+    "optStatusBarOverlap": {
+        "message": "확대된 이미지가 상태 표시줄과 겹치도록 허용",
+        "description": "[options] Allow zoomed images to overlap the status bar option"
+    },
+    "optStatusBarOverlapTooltip": {
+        "message": "확대된 이미지가 상태 표시줄과 겹치도록 허용해 창의 더 많은 부분을 사용할 수 있게 합니다",
+        "description": "[options] Tooltip for allow zoomed images to overlap the status bar option"
+    },
+    "optHScrollBarOverlap": {
+        "message": "확대된 이미지가 가로 스크롤 막대와 겹치도록 허용",
+        "description": "[options] Allow zoomed images to overlap the horizontal scroll bar option"
+    },
+    "optHScrollBarOverlapTooltip": {
+        "message": "확대된 이미지가 가로 스크롤 바와 겹치도록 허용해 창의 더 많은 부분을 사용할 수 있게 합니다",
+        "description": "[options] Tooltip for allow zoomed images to overlap the horizontal scroll bar option"
+    },
     "optCenterImages": {
         "message": "사진 가운데 배치",
         "description": "[options] Center images in the middle of the page option"
@@ -322,6 +378,14 @@
     "optCenterImagesTooltip": {
         "message": "사진이 커서를 따라 이동하도록 하는 대신 중앙에 배치",
         "description": "[options] Tooltip for center images in the middle of the page option"
+    },
+    "optAutoLockImages": {
+        "message": "이미지 자동으로 잠금",
+        "description": "[options] Automatically lock images option"
+    },
+    "optAutoLockImagesTooltip": {
+        "message": "호버 줌+ 활성화 시 이미지를 자동으로 잠그기",
+        "description": "[options] Tooltip for automatically lock images option"
     },
     "optFrameBackgroundColor": {
         "message": "액자 배경색:",
@@ -356,7 +420,7 @@
         "description": "[options] Font size option"
     },
     "optFontSizeTooltip": {
-        "message": "자막과 상세 정보 표시에 쓰이는 글씨의 크기",
+        "message": "캡션과 상세 정보 표시에 쓰이는 글씨의 크기",
         "description": "[options] Tooltip for font size option"
     },
     "optFontSizeUnitName": {
@@ -382,6 +446,18 @@
     "optDurationUnitName": {
         "message": "초",
         "description": "[options] Short form of \"second\" for delay duration"
+    },
+    "optMouseClickHoldTime": {
+        "message": "마우스 길게 누르기 시간:",
+        "description": "[options] Mouse click hold time option"
+    },
+    "optMouseClickHoldTimeTooltip": {
+        "message": "길게 누르기 동작이 실행될 때까지 마우스를 누르고 있어야 하는 시간",
+        "description": "[options] Tooltip for mouse click hold time option"
+    },
+    "optClickHoldTimeUnit": {
+        "message": "밀리초",
+        "description": "[options] Unit name (pixel) for hold time amount"
     },
     "optSectionZoomSpeed": {
         "message": "확대 속도",
@@ -499,9 +575,81 @@
         "message": "확대된 이미지의 투명도:",
         "description": "[options] Zoomed pictures opacity option"
     },
+    "optCaptionOpacity": {
+        "message": "캡션 불투명도:",
+        "description": "[options] Caption opacity option"
+    },
+    "optDetailsOpacity": {
+        "message": "상세 정보 불투명도:",
+        "description": "[options] Details opacity option"
+    },
     "optOpacityUnitName": {
         "message": "퍼센트",
         "description": "[options] Unit name (percentage) for opacity option"
+    },
+    "optDetailsSelectorTooltip": {
+        "message": "상세 정보를 표시하는 경우, 어떤 상세 정보를 표시할지 선택합니다",
+        "description": "[options] Tooltip for details selector"
+    },
+    "optTitleBoxDetails": {
+        "message": "표시할 상세 정보:",
+        "description": "[options] Title for details selector"
+    },
+    "optShowDetailHost": {
+        "message": "호스트",
+        "description": "[options] Show Host Detail"
+    },
+    "optShowDetailFilename": {
+        "message": "파일 이름",
+        "description": "[options] Show File Name Detail"
+    },
+    "optShowDetailLastModified": {
+        "message": "수정일",
+        "description": "[options] Show Last Modified Detail"
+    },
+    "optShowDetailExtension": {
+        "message": "확장자",
+        "description": "[options] Show Extension Detail"
+    },
+    "optShowDetailContentLength": {
+        "message": "미디어 길이",
+        "description": "[options] Show Content Length Detail"
+    },
+    "optShowDetailDuration": {
+        "message": "재생 시간",
+        "description": "[options] Show Duration Detail"
+    },
+    "optShowDetailScale": {
+        "message": "척도",
+        "description": "[options] Show Scale Detail"
+    },
+    "optShowDetailRatio": {
+        "message": "비율",
+        "description": "[options] Show Ratio Detail"
+    },
+    "optShowDetailDimensions": {
+        "message": "치수",
+        "description": "[options] Show Dimensions Detail"
+    },
+    "optBelowPositionOffset": {
+        "message": "아래쪽 간격:",
+        "description": "[options] Below offset option"
+    },
+    "optBelowPositionOffsetTooltip": {
+        "message": "아래쪽에서 글자를 떨어뜨릴 간격",
+        "description": "[options] Tooltip for below position offset"
+    },
+    "optAbovePositionOffset": {
+        "message": "위쪽 간격:",
+        "description": "[options] Above offset option"
+    },
+    "optAbovePositionOffsetTooltip": {
+        "message": "위쪽에서 글자를 떨어뜨릴 간격",
+        "description": "[options] Tooltip for above position offset"
+    },
+    "optOffsetUnitName": {
+        "message": "%",
+        "description": "[options] Unit name (pixel) for offset amount"
     },
     "optDisplayImageLoaderTooltip": {
         "message": "사진을 불러오는 동안 로딩 아이콘을 표시합니다(초록: 로딩, 빨강: 오류). 빨간색 로딩 아이콘을 띄울지는 선택할 수 있습니다.",
@@ -588,16 +736,28 @@
         "description": "[options] Add download caption option"
     },
     "optDownloadReplaceOriginalFilenameTooltip": {
-        "message": "Replace original filename or remove it if no value supplied (extension is preserved)",
+        "message": "원본 파일명을 바꾸거나 값이 없는 경우 제거합니다 (확장자는 유지)",
         "description": "[options] Tooltip for replace original filename when downloading option"
     },
     "optDownloadReplaceOriginalFilenamePlaceholder": {
-        "message": "Example: fullsize_image",
+        "message": "예시: fullsize_image",
         "description": "[options] Placeholder for download folder option"
     },
     "optDownloadReplaceOriginalFilename": {
-        "message": "On save, replace original filename by:",
+        "message": "저장할 때 원본 파일명을 다음으로 교체:",
         "description": "[options] Replace original filename when downloading option"
+    },
+    "optResetAllBannedImagesTooltip": {
+        "message": "초기화한 뒤에는 차단한 사진, 동영상, 오디오 트랙을 모두 다시 확대할 수 있습니다",
+        "description": "[options] Tooltip for reset all banned images option"
+    },
+    "optResetAllBannedImages": {
+        "message": "차단한 사진, 동영상, 오디오 트랙 모두 초기화",
+        "description": "[options] Reset all banned images option"
+    },
+    "optButtonResetAllBannedImages": {
+        "message": "초기화",
+        "description": "[options] Reset all banned images button"
     },
     "optSectionTroubleshooting": {
         "message": "문제 해결",
@@ -626,6 +786,34 @@
     "optSupportedAudioFormats": {
         "message": "소리:",
         "description": "[options] Page section for supported audio formats"
+    },
+    "optSectionImportExportSettings": {
+        "message": "가져오기/내보내기",
+        "description": "[options] Page section for import/export"
+    },
+    "optSectionImportExportSettingsTooltip": {
+        "message": "내보내기를 눌러 현재 설정을 문자열로 받을 수 있습니다. 가져오기를 눌러 붙여넣은 설정을 불러옵니다.",
+        "description": "[options] Tooltip for input and export options"
+    },
+    "optImportExportTextArea": {
+        "message": "여기에 저장한 설정을 붙여넣기",
+        "description": "[options] Placeholder for import and export text area"
+    },
+    "optButtonImportSettings": {
+        "message": "가져오기",
+        "description": "[options] Import a save string from the textarea"
+    },
+    "optButtonExportSettings": {
+        "message": "내보내기",
+        "description": "[options] Export a save string into the textarea"
+    },
+    "optImport": {
+        "message": "가져오기 성공!",
+        "description": "[options] Notification after successful import to options"
+    },
+    "optImportFailed": {
+        "message": "가져오기 실패",
+        "description": "[options] Notification after failed import to options"
     },
     "optPageFAQ": {
         "message": "FAQ",
@@ -767,6 +955,14 @@
         "message": "이 키를 누르고 있으면 확대한 사진이나 동영상이 숨겨집니다. 사진이 다른 마우스 오버 요소를 가리는 경우 사용하십시오.",
         "description": "[options] Action key description"
     },
+    "optBanKeyTitle": {
+        "message": "이미지 차단",
+        "description": "[options] Action key title"
+    },
+    "optBanKeyDescription": {
+        "message": "이 키를 누르고 있으면 확대된 사진이나 동영상이 차단 목록에 추가됩니다. 이 페이지에서 사진 또는 동영상을 다시 확대하고 싶지 않을 때 사용하십시오.",
+        "description": "[options] Action key description"
+    },
     "optOpenImageInWindowKeyTitle": {
         "message": "새 창에서 이미지 열기",
         "description": "[options] Action key title"
@@ -860,7 +1056,7 @@
         "description": "[options] Report a bug link in page footer"
     },
     "optFooterVersionCopyright": {
-        "message": "버전 $1 (최근 업데이트: $2) - © 2014-2022 Oleg Anashkin",
+        "message": "버전 $1 - © 2014-$2 Oleg Anashkin",
         "description": "[options] Copyright and version number in page footer"
     },
     "msgClickPageToPlayVideo": {

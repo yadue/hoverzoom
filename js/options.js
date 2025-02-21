@@ -1,32 +1,12 @@
 var options,
     hoverZoomPlugins = hoverZoomPlugins || [],
-    VK_CTRL = 1024,
-    VK_SHIFT = 2048,
-    actionKeys = ['actionKey', 'toggleKey', 'closeKey', 'hideKey', 'openImageInWindowKey', 'openImageInTabKey', 'lockImageKey', 'saveImageKey', 'fullZoomKey', 'prevImgKey', 'nextImgKey', 'flipImageKey', 'copyImageKey', 'copyImageUrlKey'];
+    actionKeys = ['actionKey', 'toggleKey', 'closeKey', 'hideKey', 'banKey', 'openImageInWindowKey', 'openImageInTabKey', 'lockImageKey', 'saveImageKey', 'fullZoomKey', 'prevImgKey', 'nextImgKey', 'flipImageKey', 'copyImageKey', 'copyImageUrlKey'];
 
 function getMilliseconds(ctrl) {
     var value = parseFloat(ctrl.val());
     value = isNaN(value) ? 0 : value * 1000;
     ctrl.val(value / 1000);
     return value;
-}
-
-function keyCodeToString(key) {
-    var s = '';
-    if (key & VK_CTRL) {
-        s += 'Ctrl+';
-        key &= ~VK_CTRL;
-    }
-    if (key & VK_SHIFT) {
-        s += 'Shift+';
-        key &= ~VK_SHIFT;
-    }
-    if (key >= 65 && key < 91) {
-        s += String.fromCharCode('A'.charCodeAt(0) + key - 65);
-    } else if (key >= 112 && key < 124) {
-        s += 'F' + (key - 111);
-    }
-    return s;
 }
 
 // Options that are only enabled for Chromium-based browsers
@@ -45,42 +25,12 @@ function initActionKeys() {
     });
 }
 
-function loadKeys(sel) {
-    $('<option value="0">None</option>').appendTo(sel);
-    if (sel.attr('id') != 'lockImageKey')
-        $('<option value="-1">Right Click</option>').appendTo(sel);
-    if (sel.attr('id') != 'selOpenImageInTabKey')
-        $('<option value="16">Shift</option>').appendTo(sel);
-    $('<option value="17">Ctrl</option>').appendTo(sel);
-    $('<option value="18">Alt</option>').appendTo(sel);
-    if (navigator.appVersion.indexOf('Macintosh') > -1) {
-        $('<option value="91">Command</option>').appendTo(sel);
-    }
-    for (var i = 65; i < 91; i++) {
-        $('<option value="' + i + '">&#' + i + ';</option>').appendTo(sel);
-    }
-    for (var i = 112; i < 124; i++) {
-        $('<option value="' + i + '">F' + (i - 111) + '</option>').appendTo(sel);
-    }
-    $('<option value="27">Escape</option>').appendTo(sel);
-    $('<option value="33">Page Up</option>').appendTo(sel);
-    $('<option value="34">Page Down</option>').appendTo(sel);
-    $('<option value="35">End</option>').appendTo(sel);
-    $('<option value="36">Home</option>').appendTo(sel);
-    $('<option value="37">Left</option>').appendTo(sel);
-    $('<option value="38">Up</option>').appendTo(sel);
-    $('<option value="39">Right</option>').appendTo(sel);
-    $('<option value="40">Down</option>').appendTo(sel);
-    $('<option value="45">Insert</option>').appendTo(sel);
-    $('<option value="46">Delete</option>').appendTo(sel);
-}
-
-// Saves options to localStorage.
-// TODO: Migrate to https://developer.chrome.com/extensions/storage
-function saveOptions() {
+async function saveOptions(exportSettings = false) {
     options.extensionEnabled = $('#chkExtensionEnabled')[0].checked;
     options.darkMode = $('#chkDarkMode')[0].checked;
     options.zoomFactor = $('#txtZoomFactor')[0].value;
+    options.maxWidth = $('#txtMaxWidth')[0].value;
+    options.maxHeight = $('#txtMaxHeight')[0].value;
     options.zoomVideos = $('#chkZoomVideos')[0].checked;
     options.videoPositionStep = $('#txtVideoPositionStep')[0].value;
     options.muteVideos = $('#chkMuteVideos')[0].checked;
@@ -88,6 +38,7 @@ function saveOptions() {
     options.videoVolume = $('#txtVideoVolume')[0].value / 100;
     options.playAudio = $('#chkPlayAudio')[0].checked;
     options.audioVolume = $('#txtAudioVolume')[0].value / 100;
+    options.mouseClickHoldTime = $('#txtMouseClickHoldTime')[0].value;
     options.mouseUnderlap = $('#chkMouseUnderlap')[0].checked;
     options.pageActionEnabled = $('#chkPageActionEnabled')[0].checked;
     options.showWhileLoading = $('#chkShowWhileLoading')[0].checked;
@@ -102,7 +53,12 @@ function saveOptions() {
     options.ambilightEnabled = $('#chkAmbilightEnabled')[0].checked;
     options.ambilightHaloSize = $('#txtAmbilightHaloSize')[0].value / 100;
     options.ambilightBackgroundOpacity = $('#txtAmbilightBackgroundOpacity')[0].value / 100;
+    options.imagePaddingSize = $('#txtImagePaddingSize')[0].value;
+    options.fullZoomHidesDetailsCaptions = $('#chkFullZoomHidesDetailsCaptions')[0].checked;
+    options.statusBarOverlap = $('#chkStatusBarOverlap')[0].checked;
+    options.hScrollBarOverlap = $('#chkHScrollBarOverlap')[0].checked;
     options.centerImages = $('#chkCenterImages')[0].checked;
+    options.autoLockImages = $('#chkAutoLockImages')[0].checked;
     options.frameBackgroundColor = $('#pickerFrameBackgroundColor')[0].value;
     options.frameThickness = $('#txtFrameThickness')[0].value;
 
@@ -118,11 +74,48 @@ function saveOptions() {
         if (!self.is(':checked')) options.disabledPlugins.push(self.attr('id').substr('chkPlugin'.length));
     });
 
+    let rightButtonActive = false;
+    let middleButtonActive = false;
+    options.rightShortClickAndHold = false;
+    options.middleShortClickAndHold = false;
+    options.rightShortClick = false;
+    options.middleShortClick = false;
+
     actionKeys.forEach(function(key) {
-        var id = key[0].toUpperCase() + key.substr(1);
+        var id = key[0].toUpperCase() + key.substring(1);
         options[key] = parseInt($('#sel' + id).val());
+
+        switch (options[key]) {
+            case -3:
+                options.rightShortClick = true;
+            case -1:
+                if (rightButtonActive) // if both selected
+                    options.rightShortClickAndHold = true;
+                else
+                rightButtonActive = true;
+                break;
+            case -4:
+                options.middleShortClick = true;
+            case -2:
+                if (middleButtonActive) // if both selected
+                    options.middleShortClickAndHold = true;
+                else
+                middleButtonActive = true;
+                break;
+            default:
+        }
     });
 
+    options.showDetailFilename = $('#chkShowDetailFilename')[0].checked;
+    options.showDetailHost = $('#chkShowDetailHost')[0].checked;
+    options.showDetailLastModified = $('#chkShowDetailLastModified')[0].checked;
+    options.showDetailExtension = $('#chkShowDetailExtension')[0].checked;
+    options.showDetailContentLength = $('#chkShowDetailContentLength')[0].checked;
+    options.showDetailDuration = $('#chkShowDetailDuration')[0].checked;
+    options.showDetailScale = $('#chkShowDetailScale')[0].checked;
+    options.showDetailRatio = $('#chkShowDetailRatio')[0].checked;
+    options.showDetailDimensions = $('#chkShowDetailDimensions')[0].checked;
+    
     options.addToHistory = $('#chkAddToHistory')[0].checked;
     options.allowHeadersRewrite = $('#chkAllowHeadersRewrite')[0].checked;
 
@@ -135,6 +128,10 @@ function saveOptions() {
     options.detailsLocation = $('#selectDetailsLocation').val();
     options.fontSize = $('#txtFontSize')[0].value;
     options.fontOutline = $('#chkFontOutline')[0].checked;
+    options.belowPositionOffset = $('#txtBelowPositionOffset')[0].value;
+    options.abovePositionOffset = $('#txtAbovePositionOffset')[0].value;
+    options.captionOpacity = $('#txtCaptionOpacity')[0].value / 100;
+    options.detailsOpacity = $('#txtDetailsOpacity')[0].value / 100;
     options.displayImageLoader = $('#chkDisplayImageLoader')[0].checked;
     options.downloadFolder = $('#txtDownloadFolder')[0].value;
     options.addDownloadOrigin = $('#chkAddDownloadOrigin')[0].checked;
@@ -148,32 +145,36 @@ function saveOptions() {
     options.useSeparateTabOrWindowForUnloadableUrlsEnabled = $('#chkUseSeparateTabOrWindowForUnloadableUrlsEnabled')[0].checked;
     options.useSeparateTabOrWindowForUnloadableUrls = $('#selectUseSeparateTabOrWindowForUnloadableUrls').val();
 
-    localStorage.options = JSON.stringify(options);
-
-    sendOptions(options);
-    restoreOptions();
-
+    if (exportSettings) { 
+        $('#txtBoxImportExportSettings').val(JSON.stringify(options));
+    } else {
+        await optionsStorageSet(options);
+        sendOptions(options);
+        await restoreOptions();
+    }
     return false;
 }
 
-function savePermissionOptions() {
+async function savePermissionOptions() {
     options.addToHistory = $('#chkAddToHistory')[0].checked;
     options.allowHeadersRewrite = $('#chkAllowHeadersRewrite')[0].checked;
-    localStorage.options = JSON.stringify(options);
+    await optionsStorageSet(options);
 }
 
 // Restores options from factory settings
-function restoreOptionsFromFactorySettings() {
-    restoreOptions(Object.assign({}, factorySettings));
+async function restoreOptionsFromFactorySettings() {
+    await restoreOptions(Object.assign({}, factorySettings));
 }
 
-// Restores options from localStorage.
-function restoreOptions(optionsFromFactorySettings) {
-    options = optionsFromFactorySettings || loadOptions();
+// Restores options from storage
+async function restoreOptions(optionsFromFactorySettings) {
+    options = optionsFromFactorySettings || await loadOptions();
 
     $('#chkExtensionEnabled').trigger(options.extensionEnabled ? 'gumby.check' : 'gumby.uncheck');
     $('#chkDarkMode').trigger(options.darkMode ? 'gumby.check' : 'gumby.uncheck');
     $('#txtZoomFactor')[0].value = options.zoomFactor;
+    $('#txtMaxWidth')[0].value = options.maxWidth;
+    $('#txtMaxHeight')[0].value = options.maxHeight;
     $('#chkZoomVideos').trigger(options.zoomVideos ? 'gumby.check' : 'gumby.uncheck');
     $('#txtVideoPositionStep')[0].value = options.videoPositionStep;
     $('#chkMuteVideos').trigger(options.muteVideos ? 'gumby.check' : 'gumby.uncheck');
@@ -183,6 +184,8 @@ function restoreOptions(optionsFromFactorySettings) {
     $('#chkPlayAudio').trigger(options.playAudio ? 'gumby.check' : 'gumby.uncheck');
     $('#rngAudioVolume').val(parseInt(options.audioVolume * 100));
     $('#txtAudioVolume').val(parseInt(options.audioVolume * 100));
+    $('#rngMouseClickHoldTime').val(parseInt(options.mouseClickHoldTime));
+    $('#txtMouseClickHoldTime').val(parseInt(options.mouseClickHoldTime));
     $('#chkMouseUnderlap').trigger(options.mouseUnderlap ? 'gumby.check' : 'gumby.uncheck');
     $('#chkPageActionEnabled').trigger(options.pageActionEnabled ? 'gumby.check' : 'gumby.uncheck');
     $('#chkShowWhileLoading').trigger(options.showWhileLoading ? 'gumby.check' : 'gumby.uncheck');
@@ -199,7 +202,11 @@ function restoreOptions(optionsFromFactorySettings) {
     $('#txtAmbilightHaloSize').val(parseInt(options.ambilightHaloSize * 100));
     $('#rngAmbilightBackgroundOpacity').val(parseInt(options.ambilightBackgroundOpacity * 100));
     $('#txtAmbilightBackgroundOpacity').val(parseInt(options.ambilightBackgroundOpacity * 100));
+    $('#chkFullZoomHidesDetailsCaptions').trigger(options.fullZoomHidesDetailsCaptions ? 'gumby.check' : 'gumby.uncheck');
+    $('#chkStatusBarOverlap').trigger(options.statusBarOverlap ? 'gumby.check' : 'gumby.uncheck');
+    $('#chkHScrollBarOverlap').trigger(options.hScrollBarOverlap ? 'gumby.check' : 'gumby.uncheck');
     $('#chkCenterImages').trigger(options.centerImages ? 'gumby.check' : 'gumby.uncheck');
+    $('#chkAutoLockImages').trigger(options.autoLockImages ? 'gumby.check' : 'gumby.uncheck');
     $('#pickerFrameBackgroundColor').val(options.frameBackgroundColor);
     $('#rngFrameThickness').val(parseInt(options.frameThickness));
     $('#txtFrameThickness').val(parseInt(options.frameThickness));
@@ -208,6 +215,12 @@ function restoreOptions(optionsFromFactorySettings) {
     $('#rngFontSize').val(parseInt(options.fontSize));
     $('#txtFontSize').val(parseInt(options.fontSize));
     $('#chkFontOutline').trigger(options.fontOutline ? 'gumby.check' : 'gumby.uncheck');
+    $('#rngImagePaddingSize').val(parseInt(options.imagePaddingSize));
+    $('#txtImagePaddingSize').val(parseInt(options.imagePaddingSize));
+    $('#txtBelowPositionOffset').val(parseFloat(options.belowPositionOffset));
+    $('#txtAbovePositionOffset').val(parseFloat(options.abovePositionOffset));
+    $('#txtCaptionOpacity').val(parseInt(options.captionOpacity * 100));
+    $('#txtDetailsOpacity').val(parseInt(options.detailsOpacity * 100));
 
     if (options.frameBackgroundColor == "") {
         initColorPicker('#ffffff');
@@ -235,10 +248,49 @@ function restoreOptions(optionsFromFactorySettings) {
         appendExcludedSite(options.excludedSites[i], false);
     }
 
+    let rightButtonActive = false;
+    let middleButtonActive = false;
+    options.rightShortClickAndHold = false;
+    options.middleShortClickAndHold = false;
+    options.rightShortClick = false;
+    options.middleShortClick = false;
+
     actionKeys.forEach(function(key) {
-        var id = key[0].toUpperCase() + key.substr(1);
+        var id = key[0].toUpperCase() + key.substring(1);
         $('#sel' + id).val(options[key]);
+
+        switch (options[key]) {
+            case -3:
+                options.rightShortClick = true;
+            case -1:
+                if (rightButtonActive) { // if both selected
+                    options.rightShortClickAndHold = true;
+                } else {
+                    rightButtonActive = true;
+                }
+                break;
+            case -4:
+                options.middleShortClick = true;
+            case -2:
+                if (middleButtonActive) { // if both selected
+                    options.middleShortClickAndHold = true;
+                } else {
+                    middleButtonActive = true;
+                }
+                break;
+            default:
+        }
     });
+
+    $('#chkShowDetailFilename').trigger(options.showDetailFilename ? 'gumby.check' : 'gumby.uncheck');
+    $('#chkShowDetailHost').trigger(options.showDetailHost ? 'gumby.check' : 'gumby.uncheck');
+    $('#chkShowDetailLastModified').trigger(options.showDetailLastModified ? 'gumby.check' : 'gumby.uncheck');
+    $('#chkShowDetailExtension').trigger(options.showDetailExtension ? 'gumby.check' : 'gumby.uncheck');
+    $('#chkShowDetailContentLength').trigger(options.showDetailContentLength ? 'gumby.check' : 'gumby.uncheck');
+    $('#chkShowDetailDuration').trigger(options.showDetailDuration ? 'gumby.check' : 'gumby.uncheck');
+    $('#chkShowDetailScale').trigger(options.showDetailScale ? 'gumby.check' : 'gumby.uncheck');
+    $('#chkShowDetailRatio').trigger(options.showDetailRatio ? 'gumby.check' : 'gumby.uncheck');
+    $('#chkShowDetailDimensions').trigger(options.showDetailDimensions ? 'gumby.check' : 'gumby.uncheck');
 
     $('#chkAddToHistory').trigger(options.addToHistory ? 'gumby.check' : 'gumby.uncheck');
     $('#chkAllowHeadersRewrite').trigger(options.allowHeadersRewrite ? 'gumby.check' : 'gumby.uncheck');
@@ -355,14 +407,15 @@ function btnRemoveExcludedSiteOnClick() {
 }
 
 function selKeyOnChange(event) {
-    var currSel = $(event.target);
+    const noneKey = '0'; // sel key code for 'none'
+    let currSel = $(event.target);
     if (currSel[0].dataset.val0 == undefined) return; // event fired before init
     currSel[0].dataset.val1 = currSel.val();
     checkModification(currSel);
-    if (currSel.val() != '0') {
+    if (currSel.val() != noneKey) {
         $('.actionKey').each(function () {
             if (!$(this).is(currSel) && $(this).val() == currSel.val()) {
-                $(this).val('0');
+                $(this).val(noneKey);
                 $(this)[0].dataset.val1 = $(this).val();
                 checkModification($(this));
             }
@@ -467,6 +520,11 @@ function replaceOriginalFilenameOnChange(val) {
     return this.value;
 }
 
+function btnResetAllBannedImagesOnClick() {
+    const request = {action:'resetBannedImages'};
+    chrome.runtime.sendMessage(request);
+}
+
 function updateDivAmbilight() {
     if ($('#chkAmbilightEnabled')[0].checked) {
         $('#divAmbilight').removeClass('disabled');
@@ -530,6 +588,30 @@ function updateTxtFontSize() {
     $('#txtFontSize')[0].value = this.value;
 }
 
+function updateTxtImagePaddingSize() {
+    $('#txtImagePaddingSize')[0].value = this.value;
+}
+
+function updateRngImagePaddingSize() {
+    this.value = percentageOnChange(this.value);
+    $('#rngImagePaddingSize').val(this.value);
+}
+
+function updateTxtBelowPositionOffset() {
+    $('#txtBelowPositionOffset')[0].value = this.value;
+}
+
+function updateTxtAbovePositionOffset() {
+    $('#txtAbovePositionOffset')[0].value = this.value;
+}
+
+function updateTxtCaptionOpacity() {
+    $('#txtCaptionOpacity')[0].value = this.value;
+}
+function updateTxtDetailsOpacity() {
+    $('#txtDetailsOpacity')[0].value = this.value;
+}
+
 function updateRngFontSize() {
     this.value = percentageOnChange(this.value);
     $('#rngFontSize').val(this.value);
@@ -551,6 +633,15 @@ function updateTxtAudioVolume() {
 function updateRngAudioVolume() {
     this.value = percentageOnChange(this.value);
     $('#rngAudioVolume').val(this.value);
+}
+
+function updateTxtMouseClickHoldTime() {
+    $('#txtMouseClickHoldTime')[0].value = this.value;
+}
+
+function updateRngMouseClickHoldTime() {
+    this.value = percentageOnChange(this.value);
+    $('#rngMouseClickHoldTime').val(this.value);
 }
 
 function updateDarkMode() {
@@ -629,6 +720,8 @@ function initColorPicker(color){
 const Saved = Symbol("saved");
 const Cancel = Symbol("cancel");
 const Reset = Symbol("reset");
+const Imported = Symbol("imported");
+const ImportFail = Symbol("importFail");
 function displayMsg(msg) {
     switch (msg)  {
         case Saved:
@@ -640,25 +733,33 @@ function displayMsg(msg) {
         case Reset:
             $('#msgtxt').removeClass().addClass('centered text-center alert info').text(chrome.i18n.getMessage('optReset')).clearQueue().animate({opacity:1}, 500).delay(5000).animate({opacity:0}, 500);
             break;
+        case Imported:
+            $('#msgtxt').removeClass().addClass('centered text-center alert success').text(chrome.i18n.getMessage('optImport')).clearQueue().animate({opacity:1}, 500).delay(5000).animate({opacity:0}, 500);
+            break;
+        case ImportFail:
+            $('#msgtxt').removeClass().addClass('centered text-center alert danger').text(chrome.i18n.getMessage('optImportFailed')).clearQueue().animate({opacity:1}, 500).delay(5000).animate({opacity:0}, 500);
+            break;
         default:
             break;
     }
 }
 
-$(function () {
-    options = loadOptions();
+$(async function () {
+    options = await loadOptions();
     initActionKeys();
     i18n();
     chkWhiteListModeOnChange();
     initAddToHistory();
     initAllowHeadersRewrite();
     chkDarkMode();
-    $("#version").text(chrome.i18n.getMessage("optFooterVersionCopyright", [chrome.runtime.getManifest().version, localStorage['HoverZoomLastUpdate'] ? localStorage['HoverZoomLastUpdate'] : localStorage['HoverZoomInstallation']]));
-    $('#btnSave').click(function() { removeModifications(); saveOptions(); displayMsg(Saved); return false; }); // "return false" needed to prevent page scroll
-    $('#btnCancel').click(function() { removeModifications(); restoreOptions(); displayMsg(Cancel); return false; });
-    $('#btnReset').click(function() { restoreOptionsFromFactorySettings(); displayMsg(Reset); return false; });
+    $("#version").text(chrome.i18n.getMessage("optFooterVersionCopyright", [chrome.runtime.getManifest().version, new Date().getFullYear()]));
+    $('#btnSave').click(function() { removeModifications(); saveOptions().then(() => displayMsg(Saved)); return false; }); // "return false" needed to prevent page scroll
+    $('#btnCancel').click(function() { removeModifications(); restoreOptions().then(() => displayMsg(Cancel)); return false; });
+    $('#btnReset').click(function() { restoreOptionsFromFactorySettings().then(() => displayMsg(Reset)); return false; });
     $('#btnDisableAllPlugins').click(function() { disableAllPlugins(); return false; });
     $('#btnEnableAllPlugins').click(function() { enableAllPlugins(); return false; });
+    $('#btnImportSettings').click(function() { importSettings(); return false; });
+    $('#btnExportSettings').click(function() { exportSettings(); return false; });
     $('#chkWhiteListMode').parent().on('gumby.onChange', chkWhiteListModeOnChange);
     $('#txtZoomFactor').change(percentageOnChange);
     $('#txtPicturesOpacity').change(percentageOnChange);
@@ -666,6 +767,8 @@ $(function () {
     $('#txtVideoVolume').change(updateRngVideoVolume);
     $('#rngAudioVolume').on('input change', updateTxtAudioVolume);
     $('#txtAudioVolume').change(updateRngAudioVolume);
+    $('#rngMouseClickHoldTime').on('input change', updateTxtMouseClickHoldTime);
+    $('#txtMouseClickHoldTime').change(updateRngMouseClickHoldTime);
     $('#chkAmbilightEnabled').parent().on('gumby.onChange', updateDivAmbilight);
     $('#rngAmbilightHaloSize').on('input change', updateTxtAmbilightHaloSize);
     $('#txtAmbilightHaloSize').change(updateRngAmbilightHaloSize);
@@ -675,6 +778,12 @@ $(function () {
     $('#txtFrameThickness').change(updateRngFrameThickness);
     $('#rngFontSize').on('input change', updateTxtFontSize);
     $('#txtFontSize').change(updateRngFontSize);
+    $('#rngImagePaddingSize').on('input change', updateTxtImagePaddingSize);
+    $('#txtImagePaddingSize').change(updateTxtImagePaddingSize);
+    $('#txtBelowPositionOffset').change(updateTxtBelowPositionOffset);
+    $('#txtAbovePositionOffset').change(updateTxtAbovePositionOffset);
+    $('#txtCaptionOpacity').change(updateTxtCaptionOpacity);
+    $('#txtDetailsOpacity').change(updateTxtDetailsOpacity);
     $('#txtVideoPositionStep').change(percentageOnChange);
     $('.actionKey').change(selKeyOnChange);
     $('#btnAddExcludedSite').click(btnAddExcludedSiteOnClick);
@@ -682,11 +791,12 @@ $(function () {
     $('#txtDownloadFolder').change(downloadFolderOnChange);
     $('#chkDownloadReplaceOriginalFilename').parent().on('gumby.onChange', updateDownloadReplaceOriginalFilename);
     $('#txtDownloadReplaceOriginalFilename').change(replaceOriginalFilenameOnChange);
+    $('#btnResetAllBannedImages').click(btnResetAllBannedImagesOnClick);
     $('#chkUseSeparateTabOrWindowForUnloadableUrlsEnabled').parent().on('gumby.onChange', updateUseSeparateTabOrWindowForUnloadableUrls);
     $('#chkHideMouseCursor').parent().on('gumby.onChange', updateDivHideMouseCursor);
     $('#chkDarkMode').parent().on('gumby.onChange', updateDarkMode);
 
-    restoreOptions();
+    await restoreOptions();
     loadPlugins();
 
     $('input[type=checkbox]').each(function() { $(this).parent().on('gumby.onChange', function() { updateCheckBox(this) }) });
@@ -703,6 +813,32 @@ function disableAllPlugins() {
 
 function enableAllPlugins() {
     $('input.chkPlugin').each(function() { $(this).trigger('gumby.check'); })
+}
+
+//Checks if string is JSON. 
+//If yes, imports settings and clears textarea.
+async function importSettings() {
+    let jsonImport;
+    try {
+        jsonImport = JSON.parse($('#txtBoxImportExportSettings')[0].value);
+        // Checks if a few HZ+ settings are defined to test if it's a valid HZ+ JSON
+        const jsonTest = [jsonImport.centerImages, jsonImport.fullZoomKey, jsonImport.hideMouseCursor];
+        jsonTest.forEach((variable) => {
+            if (typeof variable === 'undefined') {
+                throw new Error('Not a valid HZ+ import JSON');
+            }
+        });
+    } catch (e) {
+        displayMsg(ImportFail);
+        return false;
+    }
+    displayMsg(Imported);
+    await restoreOptions({jsonImport});
+    $('#txtBoxImportExportSettings').val('');
+}
+
+async function exportSettings() {
+    await saveOptions(true);
 }
 
 // highlight item if modified, unhighlight if not modified
